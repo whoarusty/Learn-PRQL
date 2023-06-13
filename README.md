@@ -15,10 +15,12 @@ Learn how to write simple, powerful, pipelined queries as an SQL replacement usi
 </div>
 
 ## Prerequisites
+* PRQL
 * DuckDB
 * Chinook Database
 
 ## Table of Contents
+- PRQL Essentials
 - Common Tasks
   - Count rows
   - See sample data
