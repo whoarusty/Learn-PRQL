@@ -55,15 +55,19 @@ Currently, there are ten transforms:
 | `window`    | Apply a pipeline to overlapping segments of rows                   |
 
 
-As indicated with the above table, to begin with PRQL, start with the from transform.
+As indicated with the above table, to begin with PRQL, start with the `from` transform. The following code examples use comments that start with a `#` and don't affect the query or results.
 
-`from {table_reference} # start with a from and table name`
+``` elm
+from {table_reference} # start with a from and table name
+```
 
 The `from` transform will return all columns and all rows from the table. Note: depending on your data set, this could be a very lengthy result. 
 
 example:
 
-`from artists # show all columns and data from the artists table`
+``` elm
+from artists # show all columns and data from the artists table
+```
 
 results:
 ```
@@ -95,8 +99,10 @@ As an example of how PRQL implements transformations, we can select just the nam
 
 example:
 
-`from artists # using the artists table
-select name  # only display the name column`
+``` elm
+from artists # using the artists table
+select name  # only display the name column
+```
 
 results:
 
@@ -124,6 +130,35 @@ results:
 ```
 
 Note: this result set was shortened for brevity of the tutorial.
+
+As another example of how PRQL utilizes transforms, both of the PRQL queries will produce the same results:
+
+``` elm
+from artists                             # use the artists table
+filter (name == 'Philip Glass Ensemble') # filter only for 'Philip Glass Ensemble'
+select name                              # only display the name column based on the filter
+```
+
+``` elm
+from artists                             # use the artists table
+select name                              # show all results and only display the name column
+filter (name == 'Philip Glass Ensemble') # display just the 'Philip Glass Ensemble' artist
+```
+
+results from either query:
+```
+┌───────────────────────┐
+│         name          │
+│        varchar        │
+├───────────────────────┤
+│ Philip Glass Ensemble │
+└───────────────────────┘
+```
+
+**PRQL Essentials Summary:** PRQL has ten transforms that establish the foundation of queries. Depending on what you want to do with your query, the transform will produce a set of results, which then can be further modified with another transform or set of transforms. Always start your PRQL query with `from` and continue to use other transforms to produce the desired query results.
+
+<br />
+
 
 ## Common Tasks
 
