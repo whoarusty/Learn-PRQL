@@ -68,8 +68,9 @@ example:
 ``` elm
 from artists # show all columns and data from the artists table
 ```
-
-results:
+<details>
+<summary>DuckDB results: (click to expand)</summary>
+  
 ```
 ┌───────────┬────────────────────────────────────────────────────────────────────────────────────┐
 │ artist_id │                                        name                                        │
@@ -94,6 +95,7 @@ results:
 ```
 
 Note: this result set was shortened for brevity of the tutorial.
+</details>
 
 As an example of how PRQL implements transformations, we can select just the name column from the artists table.
 
@@ -104,7 +106,8 @@ from artists # using the artists table
 select name  # only display the name column
 ```
 
-results:
+<details>
+<summary>DuckDB results: (click to expand)</summary>
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────┐
@@ -130,6 +133,7 @@ results:
 ```
 
 Note: this result set was shortened for brevity of the tutorial.
+</details>
 
 As another example of how PRQL utilizes transforms, both of the PRQL queries will produce the same results:
 
@@ -145,7 +149,9 @@ select name                              # show all results and only display the
 filter (name == 'Philip Glass Ensemble') # display just the 'Philip Glass Ensemble' artist
 ```
 
-results from either query:
+<details>
+<summary>DuckDB results from either query: (click to expand)</summary>
+  
 ```
 ┌───────────────────────┐
 │         name          │
@@ -154,6 +160,7 @@ results from either query:
 │ Philip Glass Ensemble │
 └───────────────────────┘
 ```
+</details>
 
 **PRQL Essentials Summary:** PRQL has ten transforms that establish the foundation of queries. Depending on what you want to do with your query, the transform will produce a set of results, which then can be further modified with another transform or set of transforms. Always start your PRQL query with `from` and continue to use other transforms to produce the desired query results.
 
