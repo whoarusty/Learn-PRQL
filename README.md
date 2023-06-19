@@ -38,8 +38,8 @@ This tutorial will focus on writting PRQL queries to see how easy and powerful t
 ## Table of Contents
 - PRQL Essentials
 - Common Tasks
-  - Count rows
   - See sample data
+  - Count rows
   - Select a subset of columns
   - List unique values
   - Filter by condition
@@ -183,9 +183,33 @@ filter (name == 'Philip Glass Ensemble') # display just the 'Philip Glass Ensemb
 
 ## Common Tasks
 
-### Count rows
-
 ### See sample data
+
+When working with data and databases, you will often need to verify data exists in your columns to make sure the ingestion process was successful. To do this with PRQL you can use the `from` transform. It is important to note that just using `from` will produce all results in the table, which could be hundreds or thousands of rows. To limit the result set you can then use the `take` transform. For example to see the columns and first five rows of the artists table, you can query the data as:
+
+```elm
+from artists
+take 5
+```
+
+<details>
+<summary>DuckDB results from : (click to expand)</summary>
+  
+```
+┌───────────┬───────────────────┐
+│ artist_id │       name        │
+│   int32   │      varchar      │
+├───────────┼───────────────────┤
+│         1 │ AC/DC             │
+│         2 │ Accept            │
+│         3 │ Aerosmith         │
+│         4 │ Alanis Morissette │
+│         5 │ Alice In Chains   │
+└───────────┴───────────────────┘
+```
+</details>
+
+### Count rows
 
 ### Select a subset of columns
 
