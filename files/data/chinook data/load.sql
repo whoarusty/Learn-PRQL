@@ -1,0 +1,11 @@
+COPY albums FROM 'albums.csv' (FORMAT 'csv', header 1, delimiter ',', quote '"');
+COPY artists FROM 'artists.csv' (FORMAT 'csv', header 1, delimiter ',', quote '"');
+COPY customers FROM 'customers.csv' (FORMAT 'csv', header 1, delimiter ',', quote '"');
+COPY employees FROM 'employees.csv' (FORMAT 'csv', header 1, delimiter ',', quote '"');
+COPY genres FROM 'genres.csv' (FORMAT 'csv', header 1, delimiter ',', quote '"');
+COPY invoices FROM 'invoices.csv' (FORMAT 'csv', header 1, delimiter ',', quote '"');
+COPY invoice_items FROM 'invoice_items.csv' (FORMAT 'csv', header 1, delimiter ',', quote '"');
+COPY media_types FROM 'media_types.csv' (FORMAT 'csv', header 1, delimiter ',', quote '"');
+COPY playlists FROM 'playlists.csv' (FORMAT 'csv', header 1, delimiter ',', quote '"');
+COPY playlist_track FROM 'playlist_track.csv' (FORMAT 'csv', header 1, delimiter ',', quote '"');
+COPY tracks FROM 'tracks.csv' (FORMAT 'csv', header 1, delimiter ',', quote '"');
