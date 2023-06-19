@@ -19,7 +19,19 @@ Learn how to write simple, powerful, pipelined queries as an SQL replacement usi
 * [DuckDB](https://github.com/duckdb/duckdb/)
 * [Chinook Database](https://github.com/lerocha/chinook-database)
 
+## Introduction
 
+> PRQL [is] designed to serve the growing need of writing 
+> analytical queries, emphasizing data transformations,
+> development speed, and readability.
+> &nbsp;&nbsp;&nbsp;&nbsp;*[PRQL Website](https://prql-lang.org/)*
+
+As a query language, PRQL can be used for various data management tasks and by various professionals -- programmers, analysts, data engineers, and data scientists. For this tutorial, an **E**xtract, **L**oad, **T**ransform (ELT) methodology was used, where the Chinook CSV data was ingested into a DuckDB database and queries will transform the data such as selecting, filtering, and performing calculations.
+
+<div align="center">
+<img src="https://raw.githubusercontent.com/whoarusty/Learn-PRQL/main/files/images/extract-load-transform.png" width=400>
+<br />
+</div>
 
 ## Table of Contents
 - PRQL Essentials
