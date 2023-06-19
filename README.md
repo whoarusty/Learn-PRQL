@@ -26,12 +26,14 @@ Learn how to write simple, powerful, pipelined queries as an SQL replacement usi
 > development speed, and readability.
 > &nbsp;&nbsp;&nbsp;&nbsp;*[PRQL Website](https://prql-lang.org/)*
 
-As a query language, PRQL can be used for various data management tasks and by various professionals -- programmers, analysts, data engineers, and data scientists. For this tutorial, an **E**xtract, **L**oad, **T**ransform (ELT) methodology was used, where the Chinook CSV data was ingested into a DuckDB database and queries will transform the data such as selecting, filtering, and performing calculations.
+As a query language, PRQL can be used for various data management tasks and by various professionals -- programmers, analysts, data engineers, and data scientists. For this tutorial, an **E**xtract, **L**oad, **T**ransform (ELT) methodology was used, where the [Chinook CSV data](https://github.com/whoarusty/Learn-PRQL/tree/6714e47c95d25b831a27ea9a80d473b9f03a2bc2/files/data/chinook%20data) was ingested into a [DuckDB database](https://github.com/whoarusty/Learn-PRQL/blob/6714e47c95d25b831a27ea9a80d473b9f03a2bc2/files/data/chinook%20data/chinook.ddb) and queries will be written to transform the data -- such as selecting, filtering, and performing calculations.
 
 <div align="center">
 <img src="https://raw.githubusercontent.com/whoarusty/Learn-PRQL/main/files/images/extract-load-transform.png" width=400>
 <br />
 </div>
+
+This tutorial will focus on writting PRQL queries to see how easy and powerful the language is to transform data.
 
 ## Table of Contents
 - PRQL Essentials
