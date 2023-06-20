@@ -1,13 +1,13 @@
 <div align="center">
-  
+
 # Learn PRQL
-  
+
 Learn how to write simple, powerful, pipelined queries as an SQL replacement using
   <br>
   **P**ipelined **R**elational **Q**uery **L**anguage, pronounced "Prequel".
 
   <a href="https://prql-lang.org/"><img src="https://github.com/PRQL/prql-brand/blob/main/logos/PNG/prql-wordmark.png" width=500></a>
-  
+
   [![Website](https://img.shields.io/badge/INTRO-WEB-blue?style=for-the-badge)](https://prql-lang.org)
   [![GitHub CI Status](https://img.shields.io/github/actions/workflow/status/PRQL/prql/pull-request.yaml?branch=main&logo=github&style=for-the-badge)](https://github.com/PRQL/prql/actions?query=branch%3Amain+workflow%3Atest-all)
   [![Stars](https://img.shields.io/github/stars/PRQL/prql?style=for-the-badge)](https://github.com/PRQL/prql/stargazers)
@@ -15,6 +15,7 @@ Learn how to write simple, powerful, pipelined queries as an SQL replacement usi
 </div>
 
 ## Tutorial Prerequisites
+
 * [PRQL](https://github.com/PRQL/prql)
 * [DuckDB](https://github.com/duckdb/duckdb/)
 * [Chinook Database](https://github.com/lerocha/chinook-database)
@@ -36,6 +37,7 @@ As a query language, PRQL can be used for various data management tasks and by v
 This tutorial will focus on writting PRQL queries to see how easy and powerful the language is to transform data.
 
 ## Table of Contents
+
 - PRQL Essentials
 - Common Tasks
   - See sample data
@@ -56,7 +58,7 @@ PRQL is a linear **pipeline of transformations**, where each line of the query t
 Currently, there are ten transforms:
 
 | Transform   | Purpose                                                            |
-| ----------- | -------------------------------------------------------------------|
+| ----------- | ------------------------------------------------------------------ |
 | `from`      | Start from a table                                                 |
 | `derive`    | Compute new columns                                                |
 | `select`    | Pick & compute columns                                             |
@@ -68,10 +70,9 @@ Currently, there are ten transforms:
 | `aggregate` | Summarize many rows into one row                                   |
 | `window`    | Apply a pipeline to overlapping segments of rows                   |
 
-
 As indicated with the above table, to begin with PRQL, start with the `from` transform. The following code examples use comments that start with a `#` and don't affect the query or results.
 
-``` elm
+```elm
 from {table_reference} # start with a from and table name
 ```
 
@@ -79,12 +80,13 @@ The `from` transform will return all columns and all rows from the table. Note: 
 
 example:
 
-``` elm
+```elm
 from artists # show all columns and data from the artists table
 ```
+
 <details>
 <summary>DuckDB results: (click to expand)</summary>
-  
+
 ```
 ┌───────────┬────────────────────────────────────────────────────────────────────────────────────┐
 │ artist_id │                                        name                                        │
@@ -109,13 +111,14 @@ from artists # show all columns and data from the artists table
 ```
 
 Note: this result set was shortened for brevity of the tutorial.
+
 </details>
 
 As an example of how PRQL implements transformations, we can select just the name column from the artists table.
 
 example:
 
-``` elm
+```elm
 from artists # using the artists table
 select name  # only display the name column
 ```
@@ -147,17 +150,18 @@ select name  # only display the name column
 ```
 
 Note: this result set was shortened for brevity of the tutorial.
+
 </details>
 
 As another example of how PRQL utilizes transforms, both of the PRQL queries will produce the same results:
 
-``` elm
+```elm
 from artists                             # use the artists table
 filter (name == 'Philip Glass Ensemble') # filter only for 'Philip Glass Ensemble'
 select name                              # only display the name column based on the filter
 ```
 
-``` elm
+```elm
 from artists                             # use the artists table
 select name                              # show all results and only display the name column
 filter (name == 'Philip Glass Ensemble') # display just the 'Philip Glass Ensemble' artist
@@ -165,7 +169,7 @@ filter (name == 'Philip Glass Ensemble') # display just the 'Philip Glass Ensemb
 
 <details>
 <summary>DuckDB results from either query: (click to expand)</summary>
-  
+
 ```
 ┌───────────────────────┐
 │         name          │
@@ -174,12 +178,12 @@ filter (name == 'Philip Glass Ensemble') # display just the 'Philip Glass Ensemb
 │ Philip Glass Ensemble │
 └───────────────────────┘
 ```
+
 </details>
 
 **PRQL Essentials Summary:** PRQL has ten transforms that establish the foundation of queries. Depending on what you want to do with your query, the transform will produce a set of results, which then can be further modified with another transform or set of transforms. Always start your PRQL query with `from` and continue to use other transforms to produce the desired query results.
 
 <br />
-
 
 ## Common Tasks
 
@@ -194,7 +198,7 @@ take 5
 
 <details>
 <summary>DuckDB results from : (click to expand)</summary>
-  
+
 ```
 ┌───────────┬───────────────────┐
 │ artist_id │       name        │
@@ -207,9 +211,53 @@ take 5
 │         5 │ Alice In Chains   │
 └───────────┴───────────────────┘
 ```
+
 </details>
 
 ### Count rows
+
+To see how many rows are in a table, you can use the aggregate count transfrom, which will summarize the results based on the previous transform. For example, to count all the rows in the artist table you can use the following transforms:
+
+```elm
+from artists      # select all rows from the artists table
+aggregate count   # summarize all the rows using count
+```
+
+<details>
+<summary>DuckDB results from : (click to expand)</summary>
+```
+┌──────────────┐
+│ count_star() │
+│    int64     │
+├──────────────┤
+│          275 │
+└──────────────┘
+```
+</details>
+
+Tip: the column name for the row count may not be very descriptive (depending on the database management system). To provide a more descriptive column name you can create an alias. Alias names can be descriptive like `total_artists` or simple like `ct` as a shortened `count`.
+
+`alias_name = {expression}`
+
+As an example, you can create an alias total_artists to represent the count results:
+
+```elm
+from artists
+aggregate total_artists = count
+```
+
+<details>
+<summary>DuckDB results from : (click to expand)</summary>
+```
+┌───────────────┐
+│ total_artists │
+│     int64     │
+├───────────────┤
+│           275 │
+└───────────────┘
+```
+In DuckDB, the column changed from `count star()` to `total_artists`.
+</details>
 
 ### Select a subset of columns
 
