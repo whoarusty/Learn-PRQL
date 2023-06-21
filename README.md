@@ -224,7 +224,7 @@ aggregate count   # summarize all the rows using count
 ```
 
 <details>
-<summary>DuckDB results from : (click to expand)</summary>
+<summary>DuckDB results: (click to expand)</summary>
 ```
 ┌──────────────┐
 │ count_star() │
@@ -239,6 +239,8 @@ Tip: the column name for the row count may not be very descriptive (depending on
 
 `alias_name = {expression}`
 
+Essentially, we are assigning the value of the expression to the alias name.
+
 As an example, you can create an alias total_artists to represent the count results:
 
 ```elm
@@ -247,7 +249,7 @@ aggregate total_artists = count
 ```
 
 <details>
-<summary>DuckDB results from : (click to expand)</summary>
+<summary>DuckDB results: (click to expand)</summary>
 ```
 ┌───────────────┐
 │ total_artists │
@@ -260,6 +262,105 @@ In DuckDB, the column changed from `count star()` to `total_artists`.
 </details>
 
 ### Select a subset of columns
+
+Some tables have many columns as part of the dataset and you'll likely encounter situations where you don't want all columns to be part of your results. Or depending on your query you'll only want to display one or two columns of relevant data. In PRQL, you can use the `select` transform to specify only the columns you want.
+
+The artists table has two columns -- `artist_id` and `name`. However, the employees table has 15 columns. Other data sets may have 20 or more columns. So, it is important to know what columns you want to show as part of your query -- get to know your data and you'll be able to create great queries. (Note: most database management systems use the SQL `describe` keyword (e.g. `describe artists` will show the columns for the artists table.)
+
+To show a simple example using the artists table, we can create a query that only shows the artists' name. We saw this example in the PRQL Essentials section earlier:
+
+```elm
+from artists
+select name
+```
+
+Note: this query will display the artists' name for all the rows in the table, which will be 275 artists (based on the count rows query). Let's limit this query result to just five rows:
+
+```elm
+from artists
+select name
+take 5
+```
+
+<details>
+<summary>DuckDB results: (click to expand)</summary>
+```
+┌───────────────────┐
+│       name        │
+│      varchar      │
+├───────────────────┤
+│ AC/DC             │
+│ Accept            │
+│ Aerosmith         │
+│ Alanis Morissette │
+│ Alice In Chains   │
+└───────────────────┘
+```
+</details>
+
+Tip: to see the last five artists, we can modify our `take` transform to use a range of values (syntax: `take (n|range)`):
+
+```elm
+from artists
+select name
+take (270..275)
+```
+
+Notice the syntax of the take transform `take (270..275)`. The range has a start value followed by two dots `..` and an end value.
+
+<details>
+<summary>DuckDB results: (click to expand)</summary>
+```
+┌────────────────────────────────────────────────────────────────────────────────────┐
+│                                        name                                        │
+│                                      varchar                                       │
+├────────────────────────────────────────────────────────────────────────────────────┤
+│ Gerald Moore                                                                       │
+│ Mela Tenenbaum, Pro Musica Prague & Richard Kapp                                   │
+│ Emerson String Quartet                                                             │
+│ C. Monteverdi, Nigel Rogers - Chiaroscuro; London Baroque; London Cornett & Sackbu │
+│ Nash Ensemble                                                                      │
+│ Philip Glass Ensemble                                                              │
+└────────────────────────────────────────────────────────────────────────────────────┘
+```
+</details>
+
+ When selecting more than one column from your table, you will need to adjust your `select` syntax and use curly brackets`{ }` like the following: `select {column1, column2}`
+
+The tracks table has nine columns: `track_id, name, album_id, media_type_id, genre_id, composer, milliseconds, bytes, unit_price`. To show two columns and limited to five rows, we could create the query as:
+
+```elm
+from tracks
+select {name, composer}
+take 5
+```
+
+<details>
+<summary>DuckDB results: (click to expand)</summary>
+```
+┌─────────────────────────────────────────┬────────────────────────────────────────────────────────────────────────┐
+│                  name                   │                                composer                                │
+│                 varchar                 │                                varchar                                 │
+├─────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────┤
+│ For Those About To Rock (We Salute You) │ Angus Young, Malcolm Young, Brian Johnson                              │
+│ Balls to the Wall                       │                                                                        │
+│ Fast As a Shark                         │ F. Baltes, S. Kaufman, U. Dirkscneider & W. Hoffman                    │
+│ Restless and Wild                       │ F. Baltes, R.A. Smith-Diesel, S. Kaufman, U. Dirkscneider & W. Hoffman │
+│ Princess of the Dawn                    │ Deaffy & R.A. Smith-Diesel                                             │
+└─────────────────────────────────────────┴────────────────────────────────────────────────────────────────────────┘
+```
+</details>
+
+Practice: write a query that only shows 10 rows of the `name, album_id, genre_id` columns from the tracks table.
+
+<details>
+<summary>Show PRQL query: (click to expand)</summary>
+```elm
+from tracks
+select {name, album_id, genre_id}
+take 10
+```
+</details>
 
 ### List unique values
 
