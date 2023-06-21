@@ -197,19 +197,19 @@ take 5
 ```
 
 <details>
-<summary>DuckDB results from : (click to expand)</summary>
+<summary>DuckDB results: (click to expand)</summary>
 
 ```
-┌───────────┬───────────────────┐
-│ artist_id │       name        │
-│   int32   │      varchar      │
-├───────────┼───────────────────┤
-│         1 │ AC/DC             │
-│         2 │ Accept            │
-│         3 │ Aerosmith         │
-│         4 │ Alanis Morissette │
-│         5 │ Alice In Chains   │
-└───────────┴───────────────────┘
+┌───────────────────┐
+│       name        │
+│      varchar      │
+├───────────────────┤
+│ AC/DC             │
+│ Accept            │
+│ Aerosmith         │
+│ Alanis Morissette │
+│ Alice In Chains   │
+└───────────────────┘
 ```
 
 </details>
@@ -225,6 +225,7 @@ aggregate count   # summarize all the rows using count
 
 <details>
 <summary>DuckDB results: (click to expand)</summary>
+
 ```
 ┌──────────────┐
 │ count_star() │
@@ -233,6 +234,7 @@ aggregate count   # summarize all the rows using count
 │          275 │
 └──────────────┘
 ```
+
 </details>
 
 Tip: the column name for the row count may not be very descriptive (depending on the database management system). To provide a more descriptive column name you can create an alias. Alias names can be descriptive like `total_artists` or simple like `ct` as a shortened `count`.
@@ -250,6 +252,7 @@ aggregate total_artists = count
 
 <details>
 <summary>DuckDB results: (click to expand)</summary>
+
 ```
 ┌───────────────┐
 │ total_artists │
@@ -258,8 +261,10 @@ aggregate total_artists = count
 │           275 │
 └───────────────┘
 ```
-In DuckDB, the column changed from `count star()` to `total_artists`.
+
 </details>
+
+
 
 ### Select a subset of columns
 
@@ -284,6 +289,7 @@ take 5
 
 <details>
 <summary>DuckDB results: (click to expand)</summary>
+
 ```
 ┌───────────────────┐
 │       name        │
@@ -296,6 +302,7 @@ take 5
 │ Alice In Chains   │
 └───────────────────┘
 ```
+
 </details>
 
 Tip: to see the last five artists, we can modify our `take` transform to use a range of values (syntax: `take (n|range)`):
@@ -310,6 +317,7 @@ Notice the syntax of the take transform `take (270..275)`. The range has a start
 
 <details>
 <summary>DuckDB results: (click to expand)</summary>
+
 ```
 ┌────────────────────────────────────────────────────────────────────────────────────┐
 │                                        name                                        │
@@ -323,9 +331,10 @@ Notice the syntax of the take transform `take (270..275)`. The range has a start
 │ Philip Glass Ensemble                                                              │
 └────────────────────────────────────────────────────────────────────────────────────┘
 ```
+
 </details>
 
- When selecting more than one column from your table, you will need to adjust your `select` syntax and use curly brackets`{ }` like the following: `select {column1, column2}`
+When selecting more than one column from your table, you will need to adjust your `select` syntax and use curly brackets`{ }` like the following: `select {column1, column2}`
 
 The tracks table has nine columns: `track_id, name, album_id, media_type_id, genre_id, composer, milliseconds, bytes, unit_price`. To show two columns and limited to five rows, we could create the query as:
 
@@ -335,8 +344,10 @@ select {name, composer}
 take 5
 ```
 
+
 <details>
 <summary>DuckDB results: (click to expand)</summary>
+
 ```
 ┌─────────────────────────────────────────┬────────────────────────────────────────────────────────────────────────┐
 │                  name                   │                                composer                                │
@@ -349,18 +360,22 @@ take 5
 │ Princess of the Dawn                    │ Deaffy & R.A. Smith-Diesel                                             │
 └─────────────────────────────────────────┴────────────────────────────────────────────────────────────────────────┘
 ```
+
 </details>
 
 Practice: write a query that only shows 10 rows of the `name, album_id, genre_id` columns from the tracks table.
 
 <details>
-<summary>Show PRQL query: (click to expand)</summary>
-```elm
+<summary>PRQL query: (click to expand)</summary>
+
+```
 from tracks
 select {name, album_id, genre_id}
 take 10
 ```
+
 </details>
+
 
 ### List unique values
 
