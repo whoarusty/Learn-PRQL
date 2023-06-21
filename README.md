@@ -38,18 +38,19 @@ This tutorial will focus on writting PRQL queries to see how easy and powerful t
 
 ## Table of Contents
 
-- PRQL Essentials
-- Common Tasks
-  - See sample data
-  - Count rows
-  - Select a subset of columns
-  - List unique values
-  - Filter by condition
-  - Sort results
-  - Get _n_ rows
-  - Create calculated columns
-- Summarize Data
-- Join Columns From Multiple Tables
+- [PRQL Essentials](#prql-essentials)
+- [Common Tasks](#common-tasks)
+  - [See sample data](#see-sample-data)
+  - [Count rows](#count-rows)
+  - [Select a subset of columns](#select-a-subset-of-columns)
+  - [List unique values](#list-unique-values)
+  - [Filter by condition](#filter-by-condition)
+  - [Sort results](#sort-results)
+  - [Get _n_ rows](#get-_n_-rows)
+  - [Create calculated columns](#create-calculated-columns)
+- [Summarize Data](#summarize-data)
+- [Join Columns From Multiple Tables](#join-columns-from-multiple-tables)
+
 
 ## PRQL Essentials
 
